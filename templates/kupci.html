@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kupci</title>
+</head>
+<body>
+
+<h1>Popis kupaca</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Akcije</th>
+    </tr>
+
+    {% for k in kupci %}
+    <tr>
+        <td>{{ k.id }}</td>
+        <td>{{ k.ime }}</td>
+        <td>{{ k.prezime }}</td>
+        <td>
+            <a href="/obrisi_racune_kupca/{{ k.id }}"
+            onclick="return confirm('Sigurno obrisati sve račune ovog kupca?')">
+            Obriši račune
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<a href="/">Nazad</a>
+
+</body>
+</html>

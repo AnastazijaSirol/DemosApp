@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Računi</title>
+</head>
+<body>
+
+<h1>Popis računa</h1>
+
+<table border="1">
+    <tr>
+        <th>Broj računa</th>
+        <th>Datum izdavanja</th>
+        <th>Kupac</th>
+        <th>Zaposlenik</th>
+        <th>Detalji</th>
+    </tr>
+
+    {% for r in racuni %}
+    <tr>
+        <td>{{ r.broj }}</td>
+        <td>{{ r.datum_izdavanja }}</td>
+        <td>{{ r.kupac_ime }} {{ r.kupac_prezime }}</td>
+        <td>{{ r.zap_ime }} {{ r.zap_prezime }}</td>
+        <td>
+            <a href="/stavke/{{ r.id }}">Prikaži detalje</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<a href="/">Nazad</a>
+
+</body>
+</html>

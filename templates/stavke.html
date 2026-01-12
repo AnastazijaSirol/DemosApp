@@ -1,0 +1,21 @@
+<h2>Stavke računa {{ racun_id }}</h2>
+
+<table border="1">
+<tr>
+    <th>Naziv artikla</th>
+    <th>Količina</th>
+    <th>Cijena</th>
+    <th>Ukupno</th>
+</tr>
+
+{% for s in stavke %}
+<tr>
+    <td>{{ s.naziv }}</td>
+    <td>{{ s.kolicina }}</td>
+    <td>{{ s.cijena }}</td>
+    <td>{{ s.ukupno }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="/racuni">Nazad na račune</a>

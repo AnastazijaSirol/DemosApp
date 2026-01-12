@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Zaposlenici</title>
+</head>
+<body>
+
+<h1>Popis zaposlenika</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+    </tr>
+
+    {% for z in zaposlenici %}
+    <tr>
+        <td>{{ z.id }}</td>
+        <td>{{ z.ime }}</td>
+        <td>{{ z.prezime }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<a href="/">Nazad</a>
+
+</body>
+</html>
