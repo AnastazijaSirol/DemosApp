@@ -5,18 +5,22 @@ from flask import request, redirect, url_for
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'trgovina'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config['MYSQL_HOST'] = 'localhost' # adresa
+app.config['MYSQL_USER'] = 'root' # korisničko ime
+app.config['MYSQL_PASSWORD'] = 'root' # lozinka
+app.config['MYSQL_DB'] = 'trgovina' # naziv baze
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor' # rezultati rječnici
 
 mysql = MySQL(app)
 
+# Rute
+
 @app.route('/')
 def index():
+    # Predaja podataka HTML-u
     return render_template('index.html')
 
+# Prikaz svih kupaca
 @app.route('/kupci')
 def kupci():
     cur = mysql.connection.cursor()
@@ -26,6 +30,7 @@ def kupci():
 
     return render_template('kupci.html', kupci=podaci)
 
+# Prikaz svih zaposlenika
 @app.route('/zaposlenici')
 def zaposlenici():
     cur = mysql.connection.cursor()
@@ -35,6 +40,7 @@ def zaposlenici():
 
     return render_template('zaposlenici.html', zaposlenici=podaci)
 
+# Prikaz svih računa
 @app.route('/racuni')
 def racuni():
     cur = mysql.connection.cursor()
@@ -57,9 +63,12 @@ def racuni():
 
     return render_template('racuni.html', racuni=racuni)
 
+# Dodavanje novog zaposlenika
 @app.route('/novi_zaposlenik', methods=['GET', 'POST'])
 def novi_zaposlenik():
+    # POST metoda
     if request.method == 'POST':
+        # Dohvaćanje podataka
         id = request.form['id']
         ime = request.form['ime']
         prezime = request.form['prezime']
@@ -73,13 +82,16 @@ def novi_zaposlenik():
             VALUES (%s, %s, %s, %s, %s)
         """, (id, ime, prezime, oib, datum))
 
+        # Spremanje promjena u bazu
         mysql.connection.commit()
         cur.close()
 
         return redirect(url_for('index'))
 
+    # GET metoda
     return render_template('novi_zaposlenik.html')
 
+# Brisanje računa određenog kupca
 @app.route('/obrisi_racune_kupca/<int:id_kupac>')
 def obrisi_racune_kupca(id_kupac):
     cur = mysql.connection.cursor()
@@ -94,12 +106,16 @@ def obrisi_racune_kupca(id_kupac):
 
     return redirect(url_for('kupci'))
 
+# Prikaz detalja računa
 @app.route('/stavke/<int:id_racun>')
 def stavke(id_racun):
     cur = mysql.connection.cursor()
 
+    # Poziv procedure
     cur.callproc('stavke_racuna', [id_racun])
     stavke = cur.fetchall()
+
+    # NAPOMENA: funkcija bi se koristila kao SELECT iz tablice
 
     cur.close()
     return render_template('stavke.html', stavke=stavke, racun_id=id_racun)
