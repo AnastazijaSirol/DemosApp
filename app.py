@@ -98,13 +98,8 @@ def obrisi_racune_kupca(id_kupac):
 def stavke(id_racun):
     cur = mysql.connection.cursor()
 
-    # Ako callproc radi:
     cur.callproc('stavke_racuna', [id_racun])
     stavke = cur.fetchall()
-
-    # Ako callproc ne radi, može ovako:
-    # cur.execute("CALL stavke_racuna(%s)", (id_racun,))
-    # stavke = cur.fetchall()
 
     cur.close()
     return render_template('stavke.html', stavke=stavke, racun_id=id_racun)
