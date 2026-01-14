@@ -9,6 +9,17 @@ Jednostavna Flask aplikacija za demonstraciju dohvata podataka iz MySQL baze pod
 ```
 python -m venv venv
 venv\Scripts\acivate
+pip freeze > requirements.txt
+```
+
+## Pokretanje koda
+
+- koristiti CMD
+
+```
+python -m venv venv
+venv\Scripts\acivate
+pip install -r requirements.txt
 ```
 
 ## Instalacija paketa

@@ -11,13 +11,13 @@ app.config['MYSQL_PASSWORD'] = 'root' # lozinka
 app.config['MYSQL_DB'] = 'trgovina' # naziv baze
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor' # rezultati rječnici
 
+# MYSQL objekt
 mysql = MySQL(app)
 
 # Rute
 
 @app.route('/')
 def index():
-    # Predaja podataka HTML-u
     return render_template('index.html')
 
 # Prikaz svih kupaca
